@@ -4,43 +4,42 @@ function getRandomHexColor() {
       .padStart(6, 0)}`;
   }
   
-  const input = document.querySelector('#controls input');
-  const createBtn = document.querySelector('[data-create]');
-  const destroyBtn = document.querySelector('[data-destroy]');
-  const boxesContainer = document.querySelector('#boxes');
   
-  createBtn.addEventListener('click', () => {
-    const amount = Number(input.value.trim());
+  const inputEl = document.querySelector("#controls input");
+  const createBtn = document.querySelector("[data-create]");
+  const destroyBtn = document.querySelector("[data-destroy]");
+  const boxes = document.querySelector("#boxes");
   
-    if (amount < 1 || amount > 100) {
-      alert('Please enter a number between 1 and 100.');
-      return;
-    }
-  
-    destroyBoxes(); // Önceki kutuları temizle
-    createBoxes(amount);
-    input.value = ''; // input'u temizle
-  });
-  
-  destroyBtn.addEventListener('click', destroyBoxes);
   
   function createBoxes(amount) {
-    const boxElements = [];
     let size = 30;
   
     for (let i = 0; i < amount; i++) {
-      const box = document.createElement('div');
+      const box = document.createElement("div");
       box.style.width = `${size}px`;
       box.style.height = `${size}px`;
       box.style.backgroundColor = getRandomHexColor();
-      box.style.margin = '5px';
-      boxElements.push(box);
+      box.style.margin = "5px";
+      box.style.display = "inline-block";
+  
+      boxes.appendChild(box);
       size += 10;
     }
-  
-    boxesContainer.append(...boxElements);
   }
   
   function destroyBoxes() {
-    boxesContainer.innerHTML = '';
+      boxes.innerHTML = "";
+      inputEl.value = "";
   }
+  
+  
+  createBtn.addEventListener("click", () => {
+    const amount = parseInt(inputEl.value);
+    if (!isNaN(amount) && amount > 0 && amount <= 100) {
+      createBoxes(amount);
+    } else {
+      alert("Lütfen 1 ile 100 arasında bir sayı girin.");
+    }
+  });
+  
+  destroyBtn.addEventListener("click", destroyBoxes);

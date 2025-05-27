@@ -1,4 +1,4 @@
-// 1. Kategorilerin sayısını bul ve yazdır
+
 const categoriesList = document.querySelector('#categories');
 const categoryItems = categoriesList.querySelectorAll('.item');
 
